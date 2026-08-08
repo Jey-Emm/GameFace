@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://github.githubassets.com; style-src 'self' 'unsafe-inline';">
+  <meta name="referrer" content="no-referrer" />
+  <title>GameFace</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <h1>GameFace</h1>
+      <p>Replicate the face expression from the emoji using your camera.</p>
+    </header>
+
+    <main>
+      <div id="game-area">
+        <div class="video-frame">
+          <video id="video" autoplay playsinline></video>
+          <canvas id="capture-canvas" width="640" height="480" class="hidden"></canvas>
+
+          <div class="video-overlay">
+            <div class="overlay-top">
+              <div class="game-icon" aria-label="GameFace icon">
+                <div class="game-icon-face">
+                  <div class="eye left"></div>
+                  <div class="eye right"></div>
+                  <div class="smile"></div>
+                </div>
+                <span>GameFace</span>
+              </div>
+              <div class="control-buttons">
+                <button id="start-button" class="video-button">Start</button>
+                <button id="exit-button" class="video-button hidden">Exit</button>
+              </div>
+            </div>
+
+            <div class="start-input">
+              <label for="max-rounds">Max Rounds</label>
+              <input id="max-rounds" type="number" min="1" max="20" value="5" />
+            </div>
+
+            <div class="emoji-topbar">
+              <div class="emoji-overlay" id="emoji-target">
+                <img id="emoji-target-img" class="emoji-overlay-img hidden" alt="target emoji" />
+                <span id="emoji-target-text">🎮</span>
+              </div>
+            </div>
+
+            <div class="score-card hidden" id="score-card">
+              <div class="score-value" id="score-label">Score: 0</div>
+            </div>
+
+            <div class="status" id="status">Press Start to begin the game.</div>
+            <div class="result-text hidden" id="result-text">Target emoji: ...</div>
+          </div>
+
+          <div class="finish-card hidden" id="finish-card">
+            <div class="finish-badge">
+              <div class="star"></div>
+              <div class="star"></div>
+              <div class="star"></div>
+            </div>
+            <div class="finish-title" id="finish-title">CONGRATULATION</div>
+            <div class="finish-message" id="finish-message">Your score is 0 / 5</div>
+            <div class="finish-actions">
+              <button id="restart-button" class="video-button">Restart</button>
+              <button id="finish-exit-button" class="video-button">Exit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
