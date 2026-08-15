@@ -19,10 +19,10 @@ app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('Referrer-Policy', 'no-referrer');
-  res.setHeader('Permissions-Policy', 'camera=(), microphone=()');
+  res.setHeader('Permissions-Policy', 'camera=(self), microphone=()');
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://github.githubassets.com; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'; base-uri 'self';"
+    "default-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://github.githubassets.com; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'; base-uri 'self'; media-src 'self' blob:;"
   );
   next();
 });

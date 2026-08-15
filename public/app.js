@@ -135,9 +135,21 @@ async function startGame() {
   maxRoundsInput.value = maxRounds;
 
   try {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      throw new Error('This browser does not support camera access.');
+    }
+
     await loadGithubEmojis();
-    stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: 'user',
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
+      },
+      audio: false,
+    });
     video.srcObject = stream;
+    video.muted = true;
     score = 0;
     round = 0;
     isPlaying = true;
