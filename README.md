@@ -114,6 +114,19 @@ node server.js
 - Prefer running the server on an AWS resource (EC2, ECS, Lambda) with an attached IAM role granting Rekognition permissions so that you don't need long-lived credentials.
 - Ensure any CI/CD or hosting provider secrets configuration uses their secure secret store (do not store secrets in the repo).
 
+## AWS Amplify Gen2 Guidance
+
+- Amplify Gen2 is the current recommended path for new projects. It avoids manual CloudFormation edits and provides a simpler deployment workflow.
+- If your existing Amplify project is Gen1, run `amplify gen2-migration` to migrate it.
+- For a new Amplify-hosted frontend with Lambda backend:
+  1. `amplify init`
+  2. `amplify function add`
+  3. `amplify api add`
+  4. `amplify push`
+- Use your existing IAM user only for CLI deployment and AWS access configuration. Do not embed long-lived keys in source code.
+- Lambda execution should use an execution role with Rekognition permission (`rekognition:DetectFaces`) so runtime access stays secure.
+- Gen2 still manages cloud resources, but you should not need to edit generated CloudFormation templates manually.
+
 ## Security & Deployment Notes
 
 - The server sets a minimal set of security headers (CSP, X-Frame-Options, etc.) and redirects to HTTPS when `NODE_ENV=production` and behind a proxy that sets `x-forwarded-proto`.
